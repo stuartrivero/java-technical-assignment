@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
+import kata.supermarket.discounters.Discounter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class BasketTest {
 
-    @Mock kata.supermarket.Discounter discounter;
+    @Mock
+    Discounter discounter;
 
     @DisplayName("basket provides its total value when containing...")
     @MethodSource
