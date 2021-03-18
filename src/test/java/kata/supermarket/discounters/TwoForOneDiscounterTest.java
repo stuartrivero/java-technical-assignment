@@ -3,7 +3,6 @@ package kata.supermarket.discounters;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import kata.supermarket.Item;

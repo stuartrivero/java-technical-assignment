@@ -27,7 +27,7 @@ class BasketTest {
     Discounter discounter;
 
     @DisplayName("basket provides its total value when containing...")
-    @MethodSource
+    @MethodSource("basketProvidesTotalValue")
     @ParameterizedTest(name = "{0}")
     void basketProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
         when(discounter.calculateDiscount(anyList())).thenReturn(BigDecimal.ZERO);
