@@ -14,61 +14,49 @@ class TwoForOneDiscounterTest {
 
     @Test
     void packetsOfBiscuitsAreTwoForOne() {
-        BigDecimal pricePerUnit = new BigDecimal("1.99");
-        Product biscuits = new Product(pricePerUnit);
+        var pricePerUnit = new BigDecimal("1.99");
+        var biscuits = new Product(pricePerUnit);
 
-        List<Item> items = new ArrayList<>();
-        items.add(biscuits.oneOf());
-        items.add(biscuits.oneOf());
+        List<Item> items = List.of(biscuits.oneOf(), biscuits.oneOf());
 
-        BigDecimal discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
+        var discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
         assertEquals(pricePerUnit, discount);
     }
 
     @Test
     void forThreePacketOfBiscuitsTwoAreCharged() {
-        BigDecimal pricePerUnit = new BigDecimal("1.99");
-        Product biscuits = new Product(pricePerUnit);
+        var pricePerUnit = new BigDecimal("1.99");
+        var biscuits = new Product(pricePerUnit);
 
-        List<Item> items = new ArrayList<>();
-        items.add(biscuits.oneOf());
-        items.add(biscuits.oneOf());
-        items.add(biscuits.oneOf());
+        var items = List.of(biscuits.oneOf(), biscuits.oneOf(), biscuits.oneOf());
 
-        BigDecimal discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
+        var discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
         assertEquals(pricePerUnit, discount);
     }
 
     @Test
     void forTwoPacketOfBiscuitsAndAChocolateBarTheBiscuitsAreDiscounted() {
-        BigDecimal pricePerUnitBiscuits = new BigDecimal("1.99");
-        BigDecimal pricePerUnitChocBar = new BigDecimal("0.95");
-        Product biscuits = new Product(pricePerUnitBiscuits);
-        Product chocBar = new Product(pricePerUnitChocBar);
+        var pricePerUnitBiscuits = new BigDecimal("1.99");
+        var pricePerUnitChocBar = new BigDecimal("0.95");
+        var biscuits = new Product(pricePerUnitBiscuits);
+        var chocBar = new Product(pricePerUnitChocBar);
 
-        List<Item> items = new ArrayList<>();
-        items.add(biscuits.oneOf());
-        items.add(biscuits.oneOf());
-        items.add(chocBar.oneOf());
+        var items = List.of(biscuits.oneOf(), biscuits.oneOf(), chocBar.oneOf());
 
-        BigDecimal discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
+        var discount = new TwoForOneDiscounter(Set.of(biscuits)).calculateDiscount(items);
         assertEquals(pricePerUnitBiscuits, discount);
     }
 
     @Test
     void forTwoPacketOfBiscuitsAndTwoChocolateBarTheBiscuitsAndChocBarAreDiscounted() {
-        BigDecimal pricePerUnitBiscuits = new BigDecimal("1.99");
-        BigDecimal pricePerUnitChocBar = new BigDecimal("0.95");
-        Product biscuits = new Product(pricePerUnitBiscuits);
-        Product chocBar = new Product(pricePerUnitChocBar);
+        var pricePerUnitBiscuits = new BigDecimal("1.99");
+        var pricePerUnitChocBar = new BigDecimal("0.95");
+        var biscuits = new Product(pricePerUnitBiscuits);
+        var chocBar = new Product(pricePerUnitChocBar);
 
-        List<Item> items = new ArrayList<>();
-        items.add(biscuits.oneOf());
-        items.add(biscuits.oneOf());
-        items.add(chocBar.oneOf());
-        items.add(chocBar.oneOf());
+        var items = List.of(biscuits.oneOf(), biscuits.oneOf(), chocBar.oneOf(), chocBar.oneOf());
 
-        BigDecimal discount = new TwoForOneDiscounter(Set.of(biscuits, chocBar)).calculateDiscount(items);
+        var discount = new TwoForOneDiscounter(Set.of(biscuits, chocBar)).calculateDiscount(items);
         assertEquals(pricePerUnitBiscuits.add(pricePerUnitChocBar), discount);
     }
 }
