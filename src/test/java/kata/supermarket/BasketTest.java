@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class BasketTest {
 
-    @Mock Discounter discounter;
+    @Mock kata.supermarket.Discounter discounter;
 
     @DisplayName("basket provides its total value when containing...")
     @MethodSource
