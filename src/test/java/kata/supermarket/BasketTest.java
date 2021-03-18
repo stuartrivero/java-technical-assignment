@@ -1,26 +1,52 @@
 package kata.supermarket;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
+import kata.supermarket.discounters.Discounter;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@ExtendWith(MockitoExtension.class)
 class BasketTest {
 
+    @Mock
+    Discounter discounter;
+
     @DisplayName("basket provides its total value when containing...")
-    @MethodSource
+    @MethodSource("basketProvidesTotalValue")
     @ParameterizedTest(name = "{0}")
     void basketProvidesTotalValue(String description, String expectedTotal, Iterable<Item> items) {
-        final Basket basket = new Basket();
+        when(discounter.calculateDiscount(anyList())).thenReturn(BigDecimal.ZERO);
+        final Basket basket = new Basket(discounter);
         items.forEach(basket::add);
         assertEquals(new BigDecimal(expectedTotal), basket.total());
+    }
+
+    @DisplayName("basket has discounts provided")
+    @Test
+    void basketDiscounted() {
+        Item item = aPintOfMilk();
+        when(discounter.calculateDiscount(singletonList(item))).thenReturn(new BigDecimal("0.20"));
+
+        final Basket basket = new Basket(discounter);
+        basket.add(item);
+
+        assertEquals(new BigDecimal("0.29"), basket.total());
+        verify(discounter).calculateDiscount(singletonList(item));
     }
 
     static Stream<Arguments> basketProvidesTotalValue() {

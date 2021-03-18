@@ -1,7 +1,9 @@
 package kata.supermarket;
 
 import java.math.BigDecimal;
+import lombok.Getter;
 
+@Getter
 public class ItemByUnit implements Item {
 
     private final Product product;

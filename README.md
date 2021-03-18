@@ -1,7 +1,7 @@
 # QMetric Java Exercise
 
 Our Java coding exercise is inspired by 
-[PragDave Supermaket Kata](http://codekata.com/kata/kata01-supermarket-pricing/). 
+[PragDave Supermarket Kata](http://codekata.com/kata/kata01-supermarket-pricing/). 
  
 > [...] to experiment with various models for representing money and prices that are flexible enough to deal with 
 >[a variety of] pricing schemes, and at the same time are generally usable (at the checkout, for stock management, 
